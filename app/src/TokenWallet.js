@@ -1,49 +1,44 @@
 import React from "react";
 import { drizzleReactHooks } from "@drizzle/react-plugin";
 import { newContextComponents } from "@drizzle/react-components";
+import { Card,Descriptions } from 'antd';
+import "./TokenWallet.css"
 
-const { useDrizzle, useDrizzleState } = drizzleReactHooks;
-const { ContractData, ContractForm } = newContextComponents;
+
+const { useDrizzle } = drizzleReactHooks;
+const { ContractForm } = newContextComponents;
 
 export default () => {
   const { drizzle } = useDrizzle();
-  const state = useDrizzleState(state => state);
   return (
-    <div className="App">
-      <div>
-        <h2>Balance</h2>
-        <ContractData
-          drizzle={drizzle}
-          drizzleState={state}
-          contract="ERC20Token"
-          method="balanceOf"
-          methodArgs={[state.accounts[0]]}
-        />
-      </div>
-      <div>
-        <h2>Transfer</h2>
-        <ContractForm
-          drizzle={drizzle}
-          contract="ERC20Token"
-          method="transfer"
-        />
-      </div>
-      <div>
-        <h2>Transfer from</h2>
-        <ContractForm
-          drizzle={drizzle}
-          contract="ERC20Token"
-          method="transferFrom"
-        />
-      </div>
-      <div>
-        <h2>Approve</h2>
-        <ContractForm
-          drizzle={drizzle}
-          contract="ERC20Token"
-          method="approve"
-        />
-      </div>
-    </div>
+    <Card  style={ { width: "50%", height: "100%"}}  bordered={false}>
+
+        <Descriptions column={1} title="Contract Method" bordered>
+            <Descriptions.Item label="Transfer">
+                <ContractForm
+                    drizzle={drizzle}
+                    contract="ERC20Token"
+                    method="transfer"
+                />
+            </Descriptions.Item>
+
+            <Descriptions.Item label="Transfer from">
+                <ContractForm
+                    drizzle={drizzle}
+                    contract="ERC20Token"
+                    method="transferFrom"
+                />
+            </Descriptions.Item>
+
+            <Descriptions.Item label="Approve">
+                <ContractForm
+                    drizzle={drizzle}
+                    contract="ERC20Token"
+                    method="approve"
+                />
+            </Descriptions.Item>
+        </Descriptions>
+
+    </Card>
   );
 };
