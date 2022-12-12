@@ -8,7 +8,7 @@ function LoadingContainer({children}) {
   const drizzleStatus = useDrizzleState(state => state.drizzleStatus);
 
   if(drizzleStatus.initialized === false) {
-    return "Loading ...";
+    return "You need to switch to the local network where the erc20 contract is deployed in metamask  ...";
   }
   return (
     <>
